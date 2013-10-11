@@ -92,18 +92,18 @@ public class RssNotificationListenerService extends IntentService {
 				String strName = rssParser.getName();
 				if(!firstEntry && strName.equals("title")) {
 					title[2] = rssParser.nextText();
-				} else if(strName.equals("item")) {
+				} else if(strName.equals("item") || strName.equals("entry")) {
 					firstEntry = true;
 				} else if (firstEntry) {
 					if (strName.equalsIgnoreCase("title")) {
 						title[0] = rssParser.nextText();
-					} else if (strName.equalsIgnoreCase("description")) {
+					} else if (strName.equalsIgnoreCase("description") || strName.equalsIgnoreCase("summary")) {
 						title[1] = rssParser.nextText();
 					}
 				}
 			} else if (eventType == XmlPullParser.END_TAG) {
 				String strName = rssParser.getName();
-				if (strName.equals("item"))
+				if (strName.equals("item")|| strName.equals("entry"))
 					foundEntry = true;
 			}
 			eventType = rssParser.next();
